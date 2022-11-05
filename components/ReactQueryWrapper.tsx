@@ -4,11 +4,7 @@
 "use client";
 
 import { WagmiConfig, createClient } from "wagmi";
-import {
-  ConnectKitProvider,
-  ConnectKitButton,
-  getDefaultClient,
-} from "connectkit";
+import { ConnectKitProvider, getDefaultClient } from "connectkit";
 
 const alchemyId = process.env.NEXT_PUBLIC_ALCHEMY_ID;
 
@@ -25,9 +21,6 @@ type Props = {
 
 export const ReactQueryWrapper = ({ children }: Props) => (
   <WagmiConfig client={client}>
-    <ConnectKitProvider>
-      <ConnectKitButton />
-      {children}
-    </ConnectKitProvider>
+    <ConnectKitProvider>{children}</ConnectKitProvider>
   </WagmiConfig>
 );

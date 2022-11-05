@@ -1,5 +1,8 @@
+"use client";
+
 import "../styles/globals.css";
 import { ReactQueryWrapper } from "../components/ReactQueryWrapper";
+import { Identity } from "../components/Identity";
 
 export default function RootLayout({
   children,
@@ -13,7 +16,10 @@ export default function RootLayout({
       </head>
       <head />
       <body>
-        <ReactQueryWrapper>{children}</ReactQueryWrapper>
+        <ReactQueryWrapper>
+          <Identity></Identity>
+          {children}
+        </ReactQueryWrapper>
       </body>
     </html>
   );
