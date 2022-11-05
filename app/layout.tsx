@@ -1,5 +1,3 @@
-"use client";
-
 import "../styles/globals.css";
 import ReactQueryWrapper from "./ReactQueryWrapper";
 
