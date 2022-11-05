@@ -23,7 +23,7 @@ type Props = {
   children: React.ReactNode;
 };
 
-const ReactQueryWrapper = ({ children }: Props) => (
+export const ReactQueryWrapper = ({ children }: Props) => (
   <WagmiConfig client={client}>
     <ConnectKitProvider>
       <ConnectKitButton />
@@ -31,5 +31,3 @@ const ReactQueryWrapper = ({ children }: Props) => (
     </ConnectKitProvider>
   </WagmiConfig>
 );
-
-export default ReactQueryWrapper;

@@ -1,5 +1,5 @@
 import "../styles/globals.css";
-import ReactQueryWrapper from "./ReactQueryWrapper";
+import { ReactQueryWrapper } from "../components/ReactQueryWrapper";
 
 export default function RootLayout({
   children,
