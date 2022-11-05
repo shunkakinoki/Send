@@ -24,7 +24,11 @@ This project uses the @statechannels browser-based wallet behind the scenes to c
 
 ## Cover image
 
+<img src="./public/logo.png" height="200">
+
 ### The ideal aspect ratio is 16:9 - for example 640x360 px.
+
+<img src="./public/banner.png" height="200">
 
 ## Screenshots
 
