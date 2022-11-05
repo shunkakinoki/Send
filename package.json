@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "fix": "pnpm run fix:eslint && pnpm run fix:prettier",
+    "fix:eslint": "eslint .",
+    "fix:prettier": "prettier . --write"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.4",
