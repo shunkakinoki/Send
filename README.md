@@ -10,15 +10,15 @@ An all-in-one "superdapp" that enables users to interact with various protocols 
 
 ### Go in as much detail as you can about what this project is. Please be as clear as possible!
 
-Interact with various
+UX on Web3 suck. Dapps mostly doesn't work on mobile, connecting to wallets differs depending on dapps (some don't even work). There are 150+ uniswap forks, yet no dapps match uniswap's usability and UX. We need to do better.
 
 Finally, SuperDapp works on any EVM chain - users are free to add different protocols & networks of their choice, as long as it is EVM.
+
+SuperDapp is a UX focused dapp designed to onboard the next billion users on web3. We want to make web3 usable - Bad UX has been a problem since web3 has been initiated; perhaps a "SuperDapp" with trustless & best UX to set a bar for dapps is necessary. We bring order to a chaotic world of messy interfaces.
 
 ## How It's Made
 
 ### Tell us about how you built this project; the nitty-gritty details. What technologies did you use? How are they pieced together? If you used sponsor technology how did it benefit your project? Did you do anything particularly hacky that's notable and worth mentioning? How did you impress yourself which what your team built?
-
-This project uses the @statechannels browser-based wallet behind the scenes to connect to Coinbase and Bitfinex APIs. We used MobX to design the frontend and the backend is built in Rust.
 
 This project uses @Polygon for cheap & fast scalable transactions to enable users to have better UX at an affordable price. Also, this project uses @Optimism to enable low-cost & fast transactions while inheriting Ethereum's security on Layer 2. @EVMos is also supported in order to achieve token swaps on the Cosmos's ecosystem's leading chain. Supports @GnosisChain to enable swaps on the OG leading EVM chain.
 
