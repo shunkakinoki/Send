@@ -9,7 +9,6 @@ export const IdentityLens = () => {
 
   useEffect(() => {
     if (address) {
-      console.log(address);
       fetch("https://api.lens.dev", {
         method: "POST",
         headers: {
@@ -23,14 +22,14 @@ export const IdentityLens = () => {
               }
             }
           `,
-          variables: {
-            now: new Date().toISOString(),
-          },
         }),
       })
         .then((res) => res.json())
         .then((result) => {
           setLensHandle(result?.data?.defaultProfile?.handle);
+        })
+        .catch((err) => {
+          console.error(err);
         });
     }
   }, [address]);
