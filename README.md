@@ -10,11 +10,11 @@ An all-in-one "superdapp" that enables users to interact with various protocols 
 
 ### Go in as much detail as you can about what this project is. Please be as clear as possible!
 
-UX on Web3 suck. Dapps mostly doesn't work on mobile, connecting to wallets differs depending on dapps (some don't even work). There are 150+ uniswap forks, yet no dapps match uniswap's usability and UX. We need to do better.
+Web3 UX sucks. There are a 100 address "username" solutions, 1,000+ EVM chains, 10,000 + DeFi protocols. Moreover, the bar for UX in web3 is very low, most dapps are virtually designed for sophisticated users on CT. How will a normal user be able to choose, trust, or even comprehend all of this?
 
-Finally, SuperDapp works on any EVM chain - users are free to add different protocols & networks of their choice, as long as it is EVM.
+Enter SuperDapp. SuperDapp enables users to customize the interface, choose between which chain & protocols & identity solutions you wish to interact with, all within the touch of the user. We aim to give power back to the user, just as the ethos of web3 is about giving the power of digital ownership back to the people.
 
-SuperDapp is a UX focused dapp designed to onboard the next billion users on web3. We want to make web3 usable - Bad UX has been a problem since web3 has been initiated; perhaps a "SuperDapp" with trustless & best UX to set a bar for dapps is necessary. We bring order to a chaotic world of messy interfaces.
+SuperDapp is a UX focused dapp designed to onboard the next billion users on web3. We want to make web3 usable - Bad UX has plagued web3 since it has been initiated; perhaps a "SuperDapp" with trustless & best UX to set a bar for dapps is necessary. We bring order to a chaotic world of complex interfaces in the dark world of EVM.
 
 ## How It's Made
 
