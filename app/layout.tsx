@@ -2,7 +2,12 @@
 
 import "../styles/globals.css";
 import { ReactQueryWrapper } from "../components/ReactQueryWrapper";
-import { Identity } from "../components/Identity";
+import dynamic from "next/dynamic";
+
+const Identity = dynamic(
+  () => import("../components/Identity").then((mod) => mod.Identity),
+  { ssr: false }
+);
 
 export default function RootLayout({
   children,
@@ -11,10 +16,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      </head>
-      <head />
       <body>
         <ReactQueryWrapper>
           <Identity></Identity>
