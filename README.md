@@ -4,19 +4,23 @@
 
 ### A max 280-character or less description of your project (it should fit in a tweet!)
 
-Exchange onramp/offramp using state channels hub-and-spoke model
+An all-in-one "superdapp" that enables users to interact with various protocols in EVM chains.
 
 ## Long description
 
 ### Go in as much detail as you can about what this project is. Please be as clear as possible!
 
-This project combines a state channels hub and browser-based frontend to allow users to deposit and withdraw tokens to their favourite exchanges instantly. The hub is designed to...
+Interact with various
+
+Finally, SuperDapp works on any EVM chain - users are free to add different protocols & networks of their choice, as long as it is EVM.
 
 ## How It's Made
 
 ### Tell us about how you built this project; the nitty-gritty details. What technologies did you use? How are they pieced together? If you used sponsor technology how did it benefit your project? Did you do anything particularly hacky that's notable and worth mentioning? How did you impress yourself which what your team built?
 
 This project uses the @statechannels browser-based wallet behind the scenes to connect to Coinbase and Bitfinex APIs. We used MobX to design the frontend and the backend is built in Rust.
+
+This project uses @Polygon for cheap & fast scalable transactions to enable users to have better UX at an affordable price. Also, this project uses @Optimism to enable low-cost & fast transactions while inheriting Ethereum's security on Layer 2. Each piece of UI is implemented on @FileCoin to achieve immutable storage for decentralization.
 
 ## Logo
 
