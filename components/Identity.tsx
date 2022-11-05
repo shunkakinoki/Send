@@ -1,6 +1,12 @@
 import { ConnectKitButton } from "connectkit";
-import { IdentityLens } from "./IdentityLens";
 import { IdentityWorldCoin } from "./IdentityWorldCoin";
+
+import dynamic from "next/dynamic";
+
+const IdentityLens = dynamic(
+  () => import("./IdentityLens").then((mod) => mod.IdentityLens),
+  { ssr: false }
+);
 
 export const Identity = () => {
   return (

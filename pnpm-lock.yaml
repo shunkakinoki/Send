@@ -18,7 +18,6 @@ specifiers:
   ethers: ^5.7.2
   git-cz: ^4.9.0
   husky: ^8.0.1
-  lenskit: github:daoleno/lenskit#0c77a3101b57f73bf9c0618ccad63b028539a80c
   next: 13.0.2
   postcss: ^8.4.18
   prettier: ^2.7.1
@@ -47,7 +46,6 @@ dependencies:
   ethers: 5.7.2
   git-cz: 4.9.0
   husky: 8.0.1
-  lenskit: github.com/daoleno/lenskit/0c77a3101b57f73bf9c0618ccad63b028539a80c
   next: 13.0.2_biqbaboplfbrettd7655fr4n2y
   postcss: 8.4.18
   prettier: 2.7.1
@@ -3822,11 +3820,6 @@ packages:
     resolution: {integrity: sha512-bzh50DW9kTPM00T8y4o8vQg89Di9oLJVLW/KaOGIXJWP/iqCN6WKYkbNOF04vFLJhwcpYUh9ydh/+5vpOqV4YQ==}
     dev: false
 
-  /graphql/16.6.0:
-    resolution: {integrity: sha512-KPIBPDlW7NxrbT/eh4qPXz5FiFdL5UbaA0XUNz2Rp3Z3hqBSkbj0GVjwFDztsWVauZUWsbKHgMg++sk8UX0bkw==}
-    engines: {node: ^12.22.0 || ^14.16.0 || ^16.0.0 || >=17.0.0}
-    dev: false
-
   /has-bigints/1.0.2:
     resolution: {integrity: sha512-tSvCKtBr9lkF0Ex0aQiP9N+OpV4zi2r/Nee5VkRDbaqv35RLYMzbwQfFSZZH0kR+Rd6302UJZ2p/bJCEoR3VoQ==}
     dev: false
@@ -6238,14 +6231,6 @@ packages:
     dependencies:
       react: 18.2.0
       use-sync-external-store: 1.2.0_react@18.2.0
-    dev: false
-
-  github.com/daoleno/lenskit/0c77a3101b57f73bf9c0618ccad63b028539a80c:
-    resolution: {tarball: https://codeload.github.com/daoleno/lenskit/tar.gz/0c77a3101b57f73bf9c0618ccad63b028539a80c}
-    name: lenskit
-    version: 0.0.0
-    dependencies:
-      graphql: 16.6.0
     dev: false
 
   github.com/ethereumjs/ethereumjs-abi/ee3994657fa7a427238e6ba92a84d0b529bbcde0:
