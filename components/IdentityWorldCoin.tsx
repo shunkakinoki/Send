@@ -1,10 +1,4 @@
-import { WidgetProps } from "@worldcoin/id";
-import dynamic from "next/dynamic";
-
-const WorldIDWidget = dynamic<WidgetProps>(
-  () => import("@worldcoin/id").then((mod) => mod.WorldIDWidget),
-  { ssr: false }
-);
+import { WorldIDWidget } from "@worldcoin/id";
 
 export const IdentityWorldCoin = () => {
   return (
