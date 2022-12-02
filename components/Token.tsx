@@ -23,6 +23,7 @@ export type ProfileBoardItemTokenProps = {
   setDialogue: ({
     address,
     open,
+    icon_url,
     name,
     symbol,
     amount,
@@ -30,6 +31,7 @@ export type ProfileBoardItemTokenProps = {
   }: {
     address: string;
     open: boolean;
+    icon_url: string;
     name: string;
     symbol: string;
     amount: number;
@@ -83,6 +85,7 @@ export const Token: FC<ProfileBoardItemTokenProps> = ({
           onClick={() => {
             setDialogue({
               address: token ?? "",
+              icon_url: icon_url ?? "",
               open: true,
               name: name ?? "",
               symbol: symbol ?? "",

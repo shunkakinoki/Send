@@ -11,6 +11,7 @@ const Home = () => {
   const { tokens } = useTokens();
   const [dialogue, setDialogue] = useState({
     address: "",
+    icon_url: "",
     open: false,
     name: "",
     symbol: "",

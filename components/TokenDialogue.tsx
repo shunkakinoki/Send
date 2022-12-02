@@ -1,17 +1,20 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { CheckIcon } from "@heroicons/react/24/outline";
 import { Fragment, useRef } from "react";
 import {
   erc20ABI,
   usePrepareContractWrite,
   useContractWrite,
   useWaitForTransaction,
+  useNetwork,
 } from "wagmi";
 import {
   CheckCircleIcon,
   XMarkIcon,
   ExclamationTriangleIcon,
 } from "@heroicons/react/20/solid";
+import { etherscanBlockExplorers } from "@wagmi/core";
+import { NextImage } from "./NextImage";
+import { shortenName } from "./Token";
 
 export const TokenDialog = ({
   open,
@@ -22,6 +25,7 @@ export const TokenDialog = ({
   dialogue: {
     address: string;
     open: boolean;
+    icon_url: string;
     name: string;
     symbol: string;
     amount: number;
@@ -29,6 +33,7 @@ export const TokenDialog = ({
   };
   setDialogue: ({
     open,
+    icon_url,
     name,
     symbol,
     amount,
@@ -36,12 +41,15 @@ export const TokenDialog = ({
   }: {
     address: string;
     open: boolean;
+    icon_url: string;
     name: string;
     symbol: string;
     amount: number;
     value: number;
   }) => void;
 }) => {
+  const { chain } = useNetwork();
+
   const cancelButtonRef = useRef(null);
   const { config } = usePrepareContractWrite({
     address: dialogue.address,
@@ -100,12 +108,21 @@ export const TokenDialog = ({
                       </div>
                       <div className="ml-3">
                         <p className="text-sm text-yellow-700">
-                          You have no credits left.{" "}
+                          Is Loading...{" "}
                           <a
-                            href="#"
+                            href={
+                              chain &&
+                              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                              //@ts-expect-error
+                              `${etherscanBlockExplorers[chain.name]}/${
+                                data?.hash
+                              }`
+                            }
+                            target="_blank"
                             className="font-medium text-yellow-700 underline hover:text-yellow-600"
+                            rel="noreferrer"
                           >
-                            Upgrade your account to add more credits.
+                            Etherscan tx link
                           </a>
                         </p>
                       </div>
@@ -141,11 +158,23 @@ export const TokenDialog = ({
                   </div>
                 )}
                 <div>
-                  <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
-                    <CheckIcon
-                      className="h-6 w-6 text-green-600"
-                      aria-hidden="true"
-                    />
+                  <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full">
+                    {dialogue.icon_url && dialogue.name ? (
+                      <NextImage
+                        width={32}
+                        height={32}
+                        useBlur={false}
+                        src={dialogue.icon_url}
+                        className="border-contrast-lower h-full w-full rounded-full border"
+                        alt={dialogue.name}
+                      />
+                    ) : (
+                      <span className="border-contrast-lower bg-bg-light inline-flex h-full w-full items-center justify-center rounded-full border">
+                        <span className="text-contrast-low overflow-hidden text-ellipsis text-xs leading-none">
+                          {dialogue.name && shortenName(dialogue.name)}
+                        </span>
+                      </span>
+                    )}
                   </div>
                   <div className="mt-3 text-center sm:mt-5">
                     <Dialog.Title
@@ -166,9 +195,9 @@ export const TokenDialog = ({
                   <button
                     type="button"
                     className="inline-flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:col-start-2 sm:text-sm"
-                    onClick={() => setDialogue({ ...dialogue, open: false })}
+                    onClick={() => write && write()}
                   >
-                    Deactivate
+                    Send
                   </button>
                   <button
                     type="button"
