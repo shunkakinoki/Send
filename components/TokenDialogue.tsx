@@ -18,6 +18,7 @@ import { shortenName } from "./Token";
 import { BigNumber } from "ethers";
 import { isAddress } from "ethers/lib/utils";
 import { useEnsAddress } from "wagmi";
+import { useSearchParams } from "next/navigation";
 
 export const TokenDialog = ({
   open,
@@ -55,13 +56,35 @@ export const TokenDialog = ({
 }) => {
   const [address, setAddress] = useState<`0x${string}`>("0x");
   const [ens, setENS] = useState("");
+
+  const [text, setText] = useState("");
+
   const [value, setValue] = useState<BigNumber>(BigNumber.from("0"));
+  const searchParams = useSearchParams();
+  const queryAddress = searchParams.get("address");
+  const queryENS = searchParams.get("ens");
 
   const { chain } = useNetwork();
 
   const { data: ensAddress } = useEnsAddress({
     name: ens,
   });
+
+  useEffect(() => {
+    if (
+      queryAddress &&
+      typeof queryAddress === "string" &&
+      queryAddress.startsWith("0x")
+    ) {
+      setAddress(queryAddress as `0x${string}`);
+      setText(queryAddress);
+    }
+    if (queryENS && typeof queryENS === "string") {
+      setENS(queryENS);
+      setText(queryENS);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (!ensAddress) {
@@ -234,6 +257,7 @@ export const TokenDialog = ({
                       className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                       placeholder="0x4fd9D0eE6D6564E80A9Ee00c0163fC952d0A45Ed"
                       aria-describedby="email-description"
+                      value={text}
                       onChange={(event) => {
                         if (isAddress(event.target.value)) {
                           setAddress(event.target.value as `0x${string}`);
