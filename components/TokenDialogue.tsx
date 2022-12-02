@@ -58,6 +58,7 @@ export const TokenDialog = ({
   const [address, setAddress] = useState<`0x${string}`>("0x");
   const [ens, setENS] = useState("");
 
+  const [inputAmount, setInputAmount] = useState("");
   const [inputText, setInputText] = useState("");
 
   const [value, setValue] = useState<BigNumber>(BigNumber.from("0"));
@@ -127,6 +128,7 @@ export const TokenDialog = ({
         className="relative z-10"
         initialFocus={cancelButtonRef}
         onClose={() => {
+          setInputAmount("");
           setDialogue({ ...dialogue, open: false });
         }}
       >
@@ -295,6 +297,7 @@ export const TokenDialog = ({
                   </label>
                   <div className="relative mt-1 rounded-md shadow-sm">
                     <input
+                      value={inputAmount}
                       type="text"
                       name="amount"
                       id="amount"
@@ -312,6 +315,7 @@ export const TokenDialog = ({
                         } else {
                           setValue(BigNumber.from(0));
                         }
+                        setInputAmount(event.target.value);
                       }}
                     />
                     <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
@@ -343,6 +347,7 @@ export const TokenDialog = ({
                     type="button"
                     className="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:col-start-1 sm:mt-0 sm:text-sm"
                     onClick={() => {
+                      setInputAmount("");
                       setDialogue({ ...dialogue, open: false });
                     }}
                     ref={cancelButtonRef}
