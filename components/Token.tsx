@@ -21,12 +21,14 @@ export type ProfileBoardItemTokenProps = {
     value?: number;
   };
   setDialogue: ({
+    address,
     open,
     name,
     symbol,
     amount,
     value,
   }: {
+    address: string;
     open: boolean;
     name: string;
     symbol: string;
@@ -36,7 +38,7 @@ export type ProfileBoardItemTokenProps = {
 };
 
 export const Token: FC<ProfileBoardItemTokenProps> = ({
-  asset: { name, amount, symbol, value, icon_url },
+  asset: { token, name, amount, symbol, value, icon_url },
   setDialogue,
 }) => {
   return (
@@ -80,6 +82,7 @@ export const Token: FC<ProfileBoardItemTokenProps> = ({
         <button
           onClick={() => {
             setDialogue({
+              address: token ?? "",
               open: true,
               name: name ?? "",
               symbol: symbol ?? "",

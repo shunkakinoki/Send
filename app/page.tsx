@@ -10,6 +10,7 @@ import { useState } from "react";
 const Home = () => {
   const { tokens } = useTokens();
   const [dialogue, setDialogue] = useState({
+    address: "",
     open: false,
     name: "",
     symbol: "",
