@@ -1,5 +1,5 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useRef } from "react";
+import { Fragment, useRef, useState } from "react";
 import {
   erc20ABI,
   usePrepareContractWrite,
@@ -15,6 +15,7 @@ import {
 import { etherscanBlockExplorers } from "@wagmi/core";
 import { NextImage } from "./NextImage";
 import { shortenName } from "./Token";
+import { BigNumber } from "ethers";
 
 export const TokenDialog = ({
   open,
@@ -48,6 +49,9 @@ export const TokenDialog = ({
     value: number;
   }) => void;
 }) => {
+  const [address, setAddress] = useState<`0x${string}`>("0x");
+  const [value, setValue] = useState<BigNumber>(BigNumber.from("0"));
+
   const { chain } = useNetwork();
 
   const cancelButtonRef = useRef(null);
@@ -55,6 +59,8 @@ export const TokenDialog = ({
     address: dialogue.address,
     abi: erc20ABI,
     functionName: "transfer",
+    args: [address, value],
+    enabled: Boolean(address),
   });
 
   const { data, write } = useContractWrite(config);
