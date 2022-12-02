@@ -97,6 +97,7 @@ export const useTokens = () => {
       ? data.map((asset) => {
           const price = asset.price?.value ?? 0;
           return {
+            price: price,
             icon_url: asset?.icon_url,
             name: asset?.name,
             decimals: asset?.decimals,

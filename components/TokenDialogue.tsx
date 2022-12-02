@@ -20,6 +20,7 @@ import { isAddress } from "ethers/lib/utils";
 import { useEnsAddress } from "wagmi";
 import { useSearchParams } from "next/navigation";
 import { useSendTransaction, usePrepareSendTransaction } from "wagmi";
+import clsx from "clsx";
 
 export const TokenDialog = ({
   open,
@@ -33,6 +34,7 @@ export const TokenDialog = ({
     icon_url: string;
     name: string;
     symbol: string;
+    price: number;
     amount: number;
     decimals: number;
     value: number;
@@ -50,6 +52,7 @@ export const TokenDialog = ({
     icon_url: string;
     name: string;
     symbol: string;
+    price: number;
     amount: number;
     decimals: number;
     value: number;
@@ -57,6 +60,8 @@ export const TokenDialog = ({
 }) => {
   const [address, setAddress] = useState<`0x${string}`>("0x");
   const [ens, setENS] = useState("");
+
+  const [isDollar, setIsDollar] = useState(false);
 
   const [inputAmount, setInputAmount] = useState("");
   const [inputText, setInputText] = useState("");
@@ -289,19 +294,53 @@ export const TokenDialog = ({
                   </p>
                 </div>
                 <div className="mt-4">
-                  <label
-                    htmlFor="amount"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Amount
-                  </label>
+                  <div className="relative flex items-start">
+                    <label
+                      htmlFor="amount"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Amount
+                    </label>
+                    <div className="ml-3 flex h-5 items-center">
+                      <input
+                        checked={isDollar}
+                        id="dollar"
+                        aria-describedby="comments-description"
+                        name="dollar"
+                        type="checkbox"
+                        className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                        onChange={(e) => setIsDollar(!isDollar)}
+                      />
+                    </div>
+                    <div className="ml-1.5 text-sm">
+                      <label
+                        htmlFor="comments"
+                        className="font-medium text-gray-600"
+                      >
+                        In Dollar Value:{" "}
+                        {isDollar && dialogue.price && (
+                          <strong>
+                            ${dialogue.price}/{dialogue.symbol}
+                          </strong>
+                        )}
+                      </label>
+                    </div>
+                  </div>
                   <div className="relative mt-1 rounded-md shadow-sm">
+                    {isDollar && (
+                      <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                        <span className="text-gray-500 sm:text-sm">$</span>
+                      </div>
+                    )}
                     <input
                       value={inputAmount}
                       type="text"
                       name="amount"
                       id="amount"
-                      className="block w-full rounded-md border-gray-300 pr-12 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      className={clsx(
+                        "block w-full rounded-md border-gray-300 pr-12 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm",
+                        isDollar ? "pl-7" : "pl-2"
+                      )}
                       placeholder="0.00"
                       aria-describedby="amount-currency"
                       onChange={(event) => {

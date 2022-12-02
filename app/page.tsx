@@ -15,6 +15,7 @@ const Home = () => {
     open: false,
     name: "",
     symbol: "",
+    price: 0,
     amount: 0,
     decimals: 0,
     value: 0,
