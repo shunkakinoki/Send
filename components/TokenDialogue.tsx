@@ -344,15 +344,30 @@ export const TokenDialog = ({
                       placeholder="0.00"
                       aria-describedby="amount-currency"
                       onChange={(event) => {
-                        const valueAmount =
-                          Number(event.target.value) * 10 ** dialogue.decimals;
-                        if (
-                          valueAmount <=
-                          dialogue.amount * 10 ** dialogue.decimals
-                        ) {
-                          setValue(BigNumber.from(valueAmount.toString()));
+                        if (!isDollar) {
+                          const valueAmount =
+                            Number(event.target.value) *
+                            10 ** dialogue.decimals;
+                          if (
+                            valueAmount <=
+                            dialogue.amount * 10 ** dialogue.decimals
+                          ) {
+                            setValue(BigNumber.from(valueAmount.toString()));
+                          } else {
+                            setValue(BigNumber.from(0));
+                          }
                         } else {
-                          setValue(BigNumber.from(0));
+                          const valueAmount =
+                            (Number(event.target.value) / dialogue.price) *
+                            10 ** dialogue.decimals;
+                          if (
+                            valueAmount <=
+                            dialogue.amount * 10 ** dialogue.decimals
+                          ) {
+                            setValue(BigNumber.from(valueAmount.toString()));
+                          } else {
+                            setValue(BigNumber.from(0));
+                          }
                         }
                         setInputAmount(event.target.value);
                       }}
