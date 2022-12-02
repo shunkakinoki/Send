@@ -16,6 +16,7 @@ const Home = () => {
     name: "",
     symbol: "",
     amount: 0,
+    decimals: 0,
     value: 0,
   });
 
