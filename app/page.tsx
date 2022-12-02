@@ -9,7 +9,13 @@ import { useState } from "react";
 
 const Home = () => {
   const { tokens } = useTokens();
-  const [dialogue, setDialogue] = useState({ open: false, name: "" });
+  const [dialogue, setDialogue] = useState({
+    open: false,
+    name: "",
+    symbol: "",
+    amount: 0,
+    value: 0,
+  });
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center py-2">

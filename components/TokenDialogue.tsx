@@ -2,14 +2,40 @@ import { Dialog, Transition } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/24/outline";
 import { Fragment, useRef } from "react";
 
+export const separateFloat = (x: number) => {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
+
+export const shortenName = (name: string) => {
+  return name.match(/\b\w/g)?.join("").substring(0, 3);
+};
+
 export const TokenDialog = ({
   open,
   dialogue,
   setDialogue,
 }: {
   open: boolean;
-  dialogue: { open: boolean; name: string };
-  setDialogue: ({ open, name }: { open: boolean; name: string }) => void;
+  dialogue: {
+    open: boolean;
+    name: string;
+    symbol: string;
+    amount: number;
+    value: number;
+  };
+  setDialogue: ({
+    open,
+    name,
+    symbol,
+    amount,
+    value,
+  }: {
+    open: boolean;
+    name: string;
+    symbol: string;
+    amount: number;
+    value: number;
+  }) => void;
 }) => {
   const cancelButtonRef = useRef(null);
 
@@ -59,14 +85,12 @@ export const TokenDialog = ({
                       as="h3"
                       className="text-lg font-medium leading-6 text-gray-900"
                     >
-                      Send {dialogue.name}
+                      Send {dialogue.name} ({dialogue.symbol})
                     </Dialog.Title>
                     <div className="mt-2">
                       <p className="text-sm text-gray-500">
-                        Lorem ipsum, dolor sit amet consectetur adipisicing
-                        elit. Eius aliquam laudantium explicabo pariatur iste
-                        dolorem animi vitae error totam. At sapiente aliquam
-                        accusamus facere veritatis.
+                        You have {dialogue.amount} {dialogue.symbol} worth{" "}
+                        {dialogue.value}
                       </p>
                     </div>
                   </div>

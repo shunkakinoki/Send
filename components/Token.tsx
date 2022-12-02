@@ -20,7 +20,19 @@ export type ProfileBoardItemTokenProps = {
     type?: string;
     value?: number;
   };
-  setDialogue: ({ open, name }: { open: boolean; name: string }) => void;
+  setDialogue: ({
+    open,
+    name,
+    symbol,
+    amount,
+    value,
+  }: {
+    open: boolean;
+    name: string;
+    symbol: string;
+    amount: number;
+    value: number;
+  }) => void;
 };
 
 export const Token: FC<ProfileBoardItemTokenProps> = ({
@@ -67,7 +79,13 @@ export const Token: FC<ProfileBoardItemTokenProps> = ({
       <td className="border-contrast-lower text-contrast-medium flex w-1/4 flex-initial shrink-0 items-center justify-end border-b py-3 pr-4 sm:w-1/5 md:w-1/6">
         <button
           onClick={() => {
-            setDialogue({ open: true, name: name ?? "asd" });
+            setDialogue({
+              open: true,
+              name: name ?? "",
+              symbol: symbol ?? "",
+              amount: amount ?? 0,
+              value: value ?? 0,
+            });
           }}
           type="button"
           className="inline-flex items-center rounded-full border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
