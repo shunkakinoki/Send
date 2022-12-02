@@ -14,10 +14,10 @@ const Home = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
+      <main className="container flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
         <h1 className="mb-4 text-6xl font-bold text-blue-300">Sender</h1>
         <Identity />
-        <div>
+        <div className="my-4 w-full">
           {tokens &&
             tokens.map((asset, index) => {
               return <Token key={index} asset={asset} />;
