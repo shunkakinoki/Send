@@ -30,6 +30,7 @@ export const TokenDialog = ({
     name: string;
     symbol: string;
     amount: number;
+    decimals: number;
     value: number;
   };
   setDialogue: ({
@@ -46,6 +47,7 @@ export const TokenDialog = ({
     name: string;
     symbol: string;
     amount: number;
+    decimals: number;
     value: number;
   }) => void;
 }) => {
@@ -191,16 +193,76 @@ export const TokenDialog = ({
                     </Dialog.Title>
                     <div className="mt-2">
                       <p className="text-sm text-gray-500">
-                        You have {dialogue.amount} {dialogue.symbol} worth $
-                        {dialogue.value}
+                        You have{" "}
+                        <strong>
+                          {dialogue.amount} {dialogue.symbol}
+                        </strong>{" "}
+                        worth <strong>${dialogue.value}</strong>
                       </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-6">
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    To: ETH Address
+                  </label>
+                  <div className="mt-1">
+                    <input
+                      type="email"
+                      name="email"
+                      id="email"
+                      className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      placeholder="0x4fd9D0eE6D6564E80A9Ee00c0163fC952d0A45Ed"
+                      aria-describedby="email-description"
+                      onChange={(event) => {
+                        setAddress(event.target.value as `0x${string}`);
+                      }}
+                    />
+                  </div>
+                  <p
+                    className="mt-2 text-sm text-gray-500"
+                    id="email-description"
+                  >
+                    It must be a valid ethereum address
+                  </p>
+                </div>
+                <div className="mt-4">
+                  <label
+                    htmlFor="amount"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    Amount
+                  </label>
+                  <div className="relative mt-1 rounded-md shadow-sm">
+                    <input
+                      type="text"
+                      name="amount"
+                      id="amount"
+                      className="block w-full rounded-md border-gray-300 pr-12 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      placeholder="0.00"
+                      aria-describedby="amount-currency"
+                      onChange={(event) => {
+                        setValue(BigNumber.from(Number(event.target.value)));
+                      }}
+                    />
+                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                      <span
+                        className="text-gray-500 sm:text-sm"
+                        id="amount-currency"
+                      >
+                        {dialogue.symbol}
+                      </span>
                     </div>
                   </div>
                 </div>
                 <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
                   <button
+                    disabled={!dialogue.address || value.isZero()}
                     type="button"
-                    className="inline-flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:col-start-2 sm:text-sm"
+                    className="inline-flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:bg-gray-200 sm:col-start-2 sm:text-sm"
                     onClick={() => write && write()}
                   >
                     Send

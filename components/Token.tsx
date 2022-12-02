@@ -14,6 +14,7 @@ export type ProfileBoardItemTokenProps = {
   asset: {
     name?: string;
     token?: string;
+    decimals?: number;
     icon_url?: string;
     symbol?: string;
     amount?: number;
@@ -35,12 +36,13 @@ export type ProfileBoardItemTokenProps = {
     name: string;
     symbol: string;
     amount: number;
+    decimals: number;
     value: number;
   }) => void;
 };
 
 export const Token: FC<ProfileBoardItemTokenProps> = ({
-  asset: { token, name, amount, symbol, value, icon_url },
+  asset: { token, name, amount, symbol, value, icon_url, decimals },
   setDialogue,
 }) => {
   return (
@@ -90,6 +92,7 @@ export const Token: FC<ProfileBoardItemTokenProps> = ({
               name: name ?? "",
               symbol: symbol ?? "",
               amount: amount ?? 0,
+              decimals: decimals ?? 0,
               value: value ?? 0,
             });
           }}
