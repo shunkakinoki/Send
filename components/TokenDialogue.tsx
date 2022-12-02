@@ -19,6 +19,7 @@ import { BigNumber } from "ethers";
 import { isAddress } from "ethers/lib/utils";
 import { useEnsAddress } from "wagmi";
 import { useSearchParams } from "next/navigation";
+import { useSendTransaction, usePrepareSendTransaction } from "wagmi";
 
 export const TokenDialog = ({
   open,
@@ -109,6 +110,16 @@ export const TokenDialog = ({
     hash: data?.hash,
   });
 
+  const { config: ethConfig } = usePrepareSendTransaction({
+    request: { to: address, value: value },
+  });
+  const {
+    data: ethData,
+    isLoading: ethIsLoading,
+    isSuccess: ethIsSuccess,
+    sendTransaction,
+  } = useSendTransaction(ethConfig);
+
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog
@@ -145,7 +156,7 @@ export const TokenDialog = ({
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
-                {isLoading && (
+                {(ethIsLoading || isLoading) && (
                   <div className="border-l-4 border-yellow-400 bg-yellow-50 p-4">
                     <div className="flex">
                       <div className="flex-shrink-0">
@@ -157,27 +168,29 @@ export const TokenDialog = ({
                       <div className="ml-3">
                         <p className="text-sm text-yellow-700">
                           Is Loading...{" "}
-                          <a
-                            href={
-                              chain &&
-                              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                              //@ts-expect-error
-                              `${etherscanBlockExplorers[chain.name]}/${
-                                data?.hash
-                              }`
-                            }
-                            target="_blank"
-                            className="font-medium text-yellow-700 underline hover:text-yellow-600"
-                            rel="noreferrer"
-                          >
-                            Etherscan tx link
-                          </a>
+                          {(ethData?.hash || data?.hash) && (
+                            <a
+                              href={
+                                chain &&
+                                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                                //@ts-expect-error
+                                `${etherscanBlockExplorers[chain.name]}/${
+                                  ethData?.hash || data?.hash
+                                }`
+                              }
+                              target="_blank"
+                              className="font-medium text-yellow-700 underline hover:text-yellow-600"
+                              rel="noreferrer"
+                            >
+                              Etherscan tx link
+                            </a>
+                          )}
                         </p>
                       </div>
                     </div>
                   </div>
                 )}
-                {isSuccess && (
+                {(ethIsSuccess || isSuccess) && (
                   <div className="rounded-md bg-green-50 p-4">
                     <div className="flex">
                       <div className="flex-shrink-0">
@@ -318,7 +331,13 @@ export const TokenDialog = ({
                     disabled={!isAddress(address) || value.isZero()}
                     type="button"
                     className="inline-flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:bg-gray-200 sm:col-start-2 sm:text-sm"
-                    onClick={() => write && write()}
+                    onClick={() => {
+                      if (dialogue.address === "eth") {
+                        sendTransaction?.();
+                      } else {
+                        write && write();
+                      }
+                    }}
                   >
                     Send
                   </button>
