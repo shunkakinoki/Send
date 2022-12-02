@@ -23,12 +23,12 @@ const Home = () => {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center py-2">
       <Head>
-        <title>Create Next App</title>
+        <title>Send</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className="container flex w-full flex-1 flex-col items-center justify-center text-center">
-        <h1 className="mb-4 text-6xl font-bold text-blue-300">Sender</h1>
+        <h1 className="mb-4 text-6xl font-bold text-blue-300">Send</h1>
         <Identity />
         <div className="my-4 w-full">
           {tokens &&
