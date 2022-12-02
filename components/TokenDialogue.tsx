@@ -1,5 +1,5 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import {
   erc20ABI,
   usePrepareContractWrite,
@@ -16,6 +16,8 @@ import { etherscanBlockExplorers } from "@wagmi/core";
 import { NextImage } from "./NextImage";
 import { shortenName } from "./Token";
 import { BigNumber } from "ethers";
+import { isAddress } from "ethers/lib/utils";
+import { useEnsAddress } from "wagmi";
 
 export const TokenDialog = ({
   open,
@@ -52,9 +54,22 @@ export const TokenDialog = ({
   }) => void;
 }) => {
   const [address, setAddress] = useState<`0x${string}`>("0x");
+  const [ens, setENS] = useState("");
   const [value, setValue] = useState<BigNumber>(BigNumber.from("0"));
 
   const { chain } = useNetwork();
+
+  const { data: ensAddress } = useEnsAddress({
+    name: ens,
+  });
+
+  useEffect(() => {
+    if (!ensAddress) {
+      setAddress("0x");
+    } else {
+      setAddress(ensAddress);
+    }
+  }, [ensAddress]);
 
   const cancelButtonRef = useRef(null);
   const { config } = usePrepareContractWrite({
@@ -207,7 +222,7 @@ export const TokenDialog = ({
                     htmlFor="email"
                     className="block text-sm font-medium text-gray-700"
                   >
-                    To: ETH Address
+                    To: ETH Address or ENS {ensAddress} {address}
                   </label>
                   <div className="mt-1">
                     <input
@@ -218,7 +233,11 @@ export const TokenDialog = ({
                       placeholder="0x4fd9D0eE6D6564E80A9Ee00c0163fC952d0A45Ed"
                       aria-describedby="email-description"
                       onChange={(event) => {
-                        setAddress(event.target.value as `0x${string}`);
+                        if (isAddress(event.target.value)) {
+                          setAddress(event.target.value as `0x${string}`);
+                        } else {
+                          setENS(event.target.value);
+                        }
                       }}
                     />
                   </div>
@@ -245,14 +264,16 @@ export const TokenDialog = ({
                       placeholder="0.00"
                       aria-describedby="amount-currency"
                       onChange={(event) => {
-                        setValue(
-                          BigNumber.from(
-                            (
-                              Number(event.target.value) *
-                              10 ** dialogue.decimals
-                            ).toString()
-                          )
-                        );
+                        const valueAmount =
+                          Number(event.target.value) * 10 ** dialogue.decimals;
+                        if (
+                          valueAmount <=
+                          dialogue.amount * 10 ** dialogue.decimals
+                        ) {
+                          setValue(BigNumber.from(valueAmount.toString()));
+                        } else {
+                          setValue(BigNumber.from(0));
+                        }
                       }}
                     />
                     <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
@@ -267,7 +288,7 @@ export const TokenDialog = ({
                 </div>
                 <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
                   <button
-                    disabled={!dialogue.address || value.isZero()}
+                    disabled={!isAddress(address) || value.isZero()}
                     type="button"
                     className="inline-flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:bg-gray-200 sm:col-start-2 sm:text-sm"
                     onClick={() => write && write()}
