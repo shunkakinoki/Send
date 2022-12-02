@@ -1,8 +1,10 @@
 "use client";
 
 import Head from "next/head";
+import { useTokens } from "../src/hooks/useTokens";
 
 const Home = () => {
+  const { tokens } = useTokens();
   return (
     <div className="flex min-h-screen flex-col items-center justify-center py-2">
       <Head>
@@ -17,6 +19,7 @@ const Home = () => {
             Next.js!
           </a>
         </h1>
+        <div>{tokens && JSON.stringify(tokens)}</div>
       </main>
     </div>
   );
