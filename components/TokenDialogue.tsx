@@ -57,7 +57,7 @@ export const TokenDialog = ({
   const [address, setAddress] = useState<`0x${string}`>("0x");
   const [ens, setENS] = useState("");
 
-  const [text, setText] = useState("");
+  const [inputText, setInputText] = useState("");
 
   const [value, setValue] = useState<BigNumber>(BigNumber.from("0"));
   const searchParams = useSearchParams();
@@ -77,11 +77,11 @@ export const TokenDialog = ({
       queryAddress.startsWith("0x")
     ) {
       setAddress(queryAddress as `0x${string}`);
-      setText(queryAddress);
+      setInputText(queryAddress);
     }
     if (queryENS && typeof queryENS === "string") {
       setENS(queryENS);
-      setText(queryENS);
+      setInputText(queryENS);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -257,13 +257,14 @@ export const TokenDialog = ({
                       className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                       placeholder="0x4fd9D0eE6D6564E80A9Ee00c0163fC952d0A45Ed"
                       aria-describedby="email-description"
-                      value={text}
+                      value={inputText}
                       onChange={(event) => {
                         if (isAddress(event.target.value)) {
                           setAddress(event.target.value as `0x${string}`);
                         } else {
                           setENS(event.target.value);
                         }
+                        setInputText(event.target.value);
                       }}
                     />
                   </div>
